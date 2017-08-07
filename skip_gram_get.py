@@ -15,7 +15,7 @@ if __name__ == '__main__':
              200000: 0.25,
              500000: 0.1}
     model = Product2VecSkipGram(df_train, df_cv, len(products), 1, 1, np.max(products.product_id) + 1)
-    model.load_model('models/prod2vec_skip_gram-3340000')
+    model.load_model('models/prod2vec_skip_gram-120000')
     embd = model.predict(products.product_id.values)
     products = pd.concat([products, pd.DataFrame(embd)], axis=1)
     products.to_pickle('data/product_embeddings.pkl')

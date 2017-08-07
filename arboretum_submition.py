@@ -311,4 +311,4 @@ if __name__ == '__main__':
     products = order_test.product_id.values
 
     result = pd.DataFrame({'product_id': products, 'order_id': orders, 'prediction': prediction})
-    result.to_pickle('data/prediction.pkl')
+    result.to_pickle('data/prediction_arboretum.pkl')
