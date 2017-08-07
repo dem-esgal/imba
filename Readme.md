@@ -12,5 +12,6 @@
 * $ python3 lgbm_cv.py # optional...
 * $ python3 arboretum_submition.py # prediction with arboretum
 * $ python3 lgbm_submition.py # prediction with lgbm
-* merge probobolities from 'data/prediction_arboretum.pkl' and 'data/prediction_lgbm.pkl'
+* merge probabilities from 'data/prediction_arboretum.pkl' and 'data/prediction_lgbm.pkl'
 * $ python3 f1_optimal.py 
+* PROFIT!!!!!

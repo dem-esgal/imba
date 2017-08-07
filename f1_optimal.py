@@ -3,7 +3,7 @@ import numpy as np
 from joblib import Parallel, delayed
 import multiprocessing
 
-from utils import find_best, fast_search
+from utils import fast_search
 
 none_product = 50000
 
@@ -30,10 +30,7 @@ def create_products(df):
     return df
 
 if __name__ == '__main__':
-
-
     data = pd.read_pickle('data/prediction_rnn.pkl')
-    # data = data[0:1000]
     data['not_a_product'] = 1. - data.prediction
 
     gp = data.groupby('order_id')['not_a_product'].apply(lambda x: np.multiply.reduce(x.values)).reset_index()
@@ -44,8 +41,6 @@ if __name__ == '__main__':
     data.product_id = data.product_id.astype(np.uint32)
 
     data = data.loc[data.prediction > 0.01, ['order_id', 'prediction', 'product_id']]
-
-    # data = data.groupby('order_id').apply(lambda x: create_products(x)).to_frame('products').reset_index()
 
     data = applyParallel(data.groupby(data.order_id), create_products).reset_index()
 
