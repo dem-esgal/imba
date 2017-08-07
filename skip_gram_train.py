@@ -16,4 +16,4 @@ if __name__ == '__main__':
              500000: 0.1}
     model = Product2VecSkipGram(df_train, df_cv, batch_size, 1, 1, np.max(products.product_id) + 1)
     model.load_model('models/prod2vec_skip_gram-120000')
-    model.train(4000 * len(df) // batch_size, 20000, len(df_cv) // batch_size, rates)
+    model.train(120000, 20000, len(df_cv) // batch_size, rates)

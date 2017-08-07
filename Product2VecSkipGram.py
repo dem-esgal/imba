@@ -47,15 +47,12 @@ class Product2VecSkipGram:
                              self.train_labels: batch_labels,
                              self.learning_rate: learning_rate}
 
-                # We perform one update step by evaluating the optimizer op (including it
-                # in the list of returned values for session.run()
                 _, loss_val = self.sess.run([self.optimizer, self.loss], feed_dict=feed_dict)
                 average_loss += loss_val
 
                 if step % 2000 == 0:
                     if step > 0:
                         average_loss /= 2000
-                    # The average loss is an estimate of the loss over the last 2000 batches.
                     print('Average loss at step ', step, ': ', average_loss)
                     average_loss = 0
                 if step % cv_every_n_steps == 0:
@@ -80,7 +77,6 @@ class Product2VecSkipGram:
         self.train_inputs = tf.placeholder(tf.int32, shape=[self.batch_size])
         self.train_labels = tf.placeholder(tf.int32, shape=[self.batch_size])
         self.learning_rate = tf.placeholder(tf.float32)
-        # valid_dataset = tf.constant(valid_examples, dtype=tf.int32)
 
         # variables
         embeddings = tf.Variable(tf.random_uniform([self.vocabulary_size, self.embedding_size], -1.0, 1.0))
@@ -90,9 +86,6 @@ class Product2VecSkipGram:
         softmax_biases = tf.Variable(tf.zeros([self.vocabulary_size]))
 
         self.gathered = tf.gather(embeddings, self.train_inputs)
-
-        # index_mask = tf.one_hot(self.train_inputs, self.vocabulary_size)
-        # gather_w = tf.matmul(index_mask,  embeddings)
 
         prediction = tf.matmul(self.gathered, softmax_weights) + softmax_biases
         self.loss = tf.reduce_mean(
